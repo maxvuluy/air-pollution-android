@@ -6,13 +6,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.github.maxvuluy.airpollution.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), BadRecordListAdapter.OnArrowClickListener {
 
-	private val viewModel by viewModels<MainViewModel>()
 	private lateinit var binding: ActivityMainBinding
 
 	private val goodAdapter = GoodRecordListAdapter()
@@ -23,8 +23,9 @@ class MainActivity : AppCompatActivity(), BadRecordListAdapter.OnArrowClickListe
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
+		val viewModel = ViewModelProvider(this).get<MainViewModel>()
 		binding = ActivityMainBinding.inflate(layoutInflater).apply {
-			viewModel = this@MainActivity.viewModel
+			this.viewModel = viewModel
 		}
 		setContentView(binding.root)
 
