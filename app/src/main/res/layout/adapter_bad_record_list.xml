@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<variable
+			name="record"
+			type="com.github.maxvuluy.airpollution.PollutionRecord" />
+
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingHorizontal="@dimen/padding_record">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/layoutStart"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:paddingVertical="@dimen/padding_record"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@id/layoutEnd"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<TextView
+				android:id="@+id/textViewSiteId"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:gravity="center"
+				android:text="@{Integer.toString(record.siteId)}"
+				android:textSize="@dimen/text_size_site_id"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintDimensionRatio="W,1"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:text="313" />
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/layoutSite"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/margin_record"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@id/textViewSiteId"
+				app:layout_constraintTop_toTopOf="parent">
+
+				<TextView
+					android:id="@+id/textViewSiteName"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@{record.siteName}"
+					android:textSize="@dimen/text_size_record"
+					android:textStyle="bold"
+					app:layout_constraintBottom_toTopOf="@id/textViewCountry"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					tools:text="屏東(枋寮)" />
+
+				<TextView
+					android:id="@+id/textViewCountry"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@{record.country}"
+					android:textSize="@dimen/text_size_record"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textViewSiteName"
+					tools:text="屏東縣" />
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/layoutEnd"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:paddingVertical="@dimen/padding_record"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@id/layoutStart"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<ImageButton
+				android:id="@+id/imageButtonArrow"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:background="@android:color/transparent"
+				android:contentDescription="@string/detail_information"
+				android:scaleType="fitCenter"
+				android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+				android:visibility="@{record.arrow}"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintDimensionRatio="W,1"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:visibility="gone" />
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/layoutStatus"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/margin_record"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@id/imageButtonArrow"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_goneMarginEnd="0dp">
+
+				<TextView
+					android:id="@+id/textViewPM2_5"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@{Integer.toString(record.pm2_5)}"
+					android:textSize="@dimen/text_size_record"
+					app:layout_constraintBottom_toTopOf="@id/textViewStatus"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="1"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					tools:text="1" />
+
+				<TextView
+					android:id="@+id/textViewStatus"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:gravity="end"
+					android:maxLines="1"
+					android:text="@{record.subStatus}"
+					android:textSize="@dimen/text_size_record"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textViewPM2_5"
+					tools:text="The status is good, we want to go out to have fun" />
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<View
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:background="@color/black"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="1" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
