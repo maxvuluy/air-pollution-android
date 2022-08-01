@@ -5,7 +5,7 @@ import android.view.View
 data class PollutionRecord(
 	val siteId: Int,
 	val siteName: String,
-	val country: String,
+	val county: String,
 	val pm2_5: Int,
 	val status: String,
 	private val substitute: String

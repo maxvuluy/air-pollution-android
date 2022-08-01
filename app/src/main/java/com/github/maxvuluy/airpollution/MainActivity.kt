@@ -4,20 +4,43 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.github.maxvuluy.airpollution.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BadRecordListAdapter.OnArrowClickListener {
 
+	private val viewModel by viewModels<MainViewModel>()
 	private lateinit var binding: ActivityMainBinding
+
+	private val goodAdapter = GoodRecordListAdapter()
+	private val badAdapter = BadRecordListAdapter().apply {
+		onArrowClickListener = this@MainActivity
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		binding = ActivityMainBinding.inflate(layoutInflater)
+		binding = ActivityMainBinding.inflate(layoutInflater).apply {
+			viewModel = this@MainActivity.viewModel
+		}
 		setContentView(binding.root)
 
 		setSupportActionBar(binding.toolbar)
+
+		binding.apply {
+			recyclerViewGood.adapter = goodAdapter
+			recyclerViewBad.adapter = badAdapter
+		}
+
+		viewModel.goodRecordList.observe(this) {
+			goodAdapter.submitList(it)
+		}
+		viewModel.badRecordList.observe(this) {
+			badAdapter.submitList(it)
+		}
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -39,6 +62,17 @@ class MainActivity : AppCompatActivity() {
 			}
 			else -> super.onOptionsItemSelected(item)
 		}
+	}
+
+	override fun onArrowClick(view: View, position: Int) {
+		val pollutionRecord = badAdapter.currentList[position]
+		Toast
+			.makeText(
+				this,
+				getString(R.string.record_detail, pollutionRecord.siteName, pollutionRecord.status),
+				Toast.LENGTH_LONG
+			)
+			.show()
 	}
 
 }
