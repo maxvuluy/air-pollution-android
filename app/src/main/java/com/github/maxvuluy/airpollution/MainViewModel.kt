@@ -20,6 +20,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 	val goodRecordList = MutableLiveData<List<PollutionRecord>>()
 	val badRecordList = MutableLiveData<List<PollutionRecord>>()
+	val loaded = MutableLiveData<Boolean>()
 
 	init {
 		viewModelScope.launch {
@@ -47,17 +48,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 	}
 
 	private fun handleRecords(recordList: List<PollutionRecord>?) {
-		if (recordList == null) {
-			// TODO handle error
-			return
-		}
-
-		getApplication<TapiaApplication>().recordList = recordList
+		loaded.postValue(recordList != null)
+		getApplication<TapiaApplication>().recordList = recordList ?: return
 
 		val goodAndBad = recordList.partition {
 			it.pm2_5 <= THRESHOLD
 		}
-
 		goodRecordList.postValue(goodAndBad.first)
 		badRecordList.postValue(goodAndBad.second)
 	}

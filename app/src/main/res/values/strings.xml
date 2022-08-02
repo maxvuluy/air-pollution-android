@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">空氣污染</string>
+
 	<string name="good_substitute">The status is good, we want to go out to have fun</string>
 	<string name="detail_information">詳細資訊</string>
 	<string name="record_detail">%s空氣品質%s</string>
+	<string name="rpc_error">無法取得空汙紀錄，請確認網路狀態，或稍後再嘗試</string>
+	<string name="ok">OK</string>
+
 	<string name="action_search">搜尋</string>
 	<string name="search_hint">請輸入「站名」</string>
 	<string name="input_search">請輸入「站名」\n查詢該地區空汙資訊</string>

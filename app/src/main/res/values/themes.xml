@@ -2,8 +2,8 @@
 	<!-- Base application theme. -->
 	<style name="Theme.AirPollution" parent="Theme.MaterialComponents.DayNight">
 		<!-- Primary brand color. -->
-		<item name="colorPrimary">@color/white</item>
-		<item name="colorPrimaryVariant">@color/white</item>
+		<item name="colorPrimary">@color/purple_200</item>
+		<item name="colorPrimaryVariant">@color/purple_700</item>
 		<item name="colorOnPrimary">@color/black</item>
 		<!-- Status bar color. -->
 		<item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
@@ -14,7 +14,10 @@
 		<item name="windowNoTitle">true</item>
 	</style>
 
-	<style name="Theme.AirPollution.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+	<style name="Theme.AirPollution.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
+		<item name="colorPrimary">@color/white</item>
+		<item name="colorPrimaryVariant">@color/white</item>
+	</style>
 
 	<style name="Theme.AirPollution.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

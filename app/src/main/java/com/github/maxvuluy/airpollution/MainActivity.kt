@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.github.maxvuluy.airpollution.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), BadRecordListAdapter.OnArrowClickListener {
+class MainActivity : AppCompatActivity(),
+	BadRecordListAdapter.OnArrowClickListener,
+	RpcErrorDialogFragment.OnFinishListener {
 
 	private lateinit var binding: ActivityMainBinding
 
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity(), BadRecordListAdapter.OnArrowClickListe
 		val viewModel = ViewModelProvider(this).get<MainViewModel>()
 		binding = ActivityMainBinding.inflate(layoutInflater).apply {
 			this.viewModel = viewModel
+			lifecycleOwner = this@MainActivity
 		}
 		setContentView(binding.root)
 
@@ -41,6 +44,11 @@ class MainActivity : AppCompatActivity(), BadRecordListAdapter.OnArrowClickListe
 		}
 		viewModel.badRecordList.observe(this) {
 			badAdapter.submitList(it)
+		}
+		viewModel.loaded.observe(this) {
+			if (!it) {
+				RpcErrorDialogFragment().show(supportFragmentManager, null)
+			}
 		}
 	}
 
@@ -74,6 +82,10 @@ class MainActivity : AppCompatActivity(), BadRecordListAdapter.OnArrowClickListe
 				Toast.LENGTH_LONG
 			)
 			.show()
+	}
+
+	override fun onFinish() {
+		finish()
 	}
 
 }
